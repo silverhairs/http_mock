@@ -29,7 +29,7 @@ void main(){
         subject = APIClient(client:client);
 
         when(() => client.get(any<Uri>())).thenAnswer(
-            (_) => Future<Response>.value(Response(data, 200)
+            (_) => Future<Response>.value(Response(jsonEncode(data), 200)
             ,)
         ,)
     });
