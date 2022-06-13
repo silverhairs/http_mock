@@ -1,0 +1,9 @@
+name: Example
+description: An example Dart program
+
+environment:
+  sdk: '>=2.17.3 <3.0.0'
+
+dependencies:
+  http_mock:
+    path: ../
