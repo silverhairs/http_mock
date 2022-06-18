@@ -48,14 +48,10 @@ import 'package:http_mock/http_mock.dart';
 void main(){
     const data = {'data':'test'};
 
-    late final Client client;
-    late final APIClient subject;
+    final client = MockClient();
+    final APIClient subject = APIClient(client:client);;
 
-    setUpAll((){
-        client = MockClient()
-        ..getSuccess(respondWith: Response(jsonEncode(data), 200))
-        subject = APIClient(client:client);
-    });
+    setUpAll(()=>client.getSuccess(respondWith: Response(jsonEncode(data), 200)));
 
     test('should get the data from the API', (){
         expectLater(subject.getData(), completion({data}));
