@@ -35,7 +35,7 @@ void main(){
     });
 
     test('should get the data from the API', (){
-        expectLater(subject.getData(), completion({data}));
+        expectLater(subject.getData(), completion(data));
     });
 }
 ```
@@ -54,7 +54,7 @@ void main(){
     setUpAll(()=>client.getSuccess(respondWith: Response(jsonEncode(data), 200)));
 
     test('should get the data from the API', (){
-        expectLater(subject.getData(), completion({data}));
+        expectLater(subject.getData(), completion(data));
     });
 }
 ```
