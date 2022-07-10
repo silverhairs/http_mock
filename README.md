@@ -29,13 +29,13 @@ void main(){
         subject = APIClient(client:client);
 
         when(() => client.get(any<Uri>())).thenAnswer(
-            (_) => Future<Response>.value(Response(data, 200)
+            (_) => Future<Response>.value(Response(jsonEncode(data), 200)
             ,)
         ,)
     });
 
     test('should get the data from the API', (){
-        expectLater(subject.getData(), completion({data}));
+        expectLater(subject.getData(), completion(data));
     });
 }
 ```
@@ -48,17 +48,13 @@ import 'package:http_mock/http_mock.dart';
 void main(){
     const data = {'data':'test'};
 
-    late final Client client;
-    late final APIClient subject;
+    final client = MockClient();
+    final APIClient subject = APIClient(client:client);;
 
-    setUpAll((){
-        client = MockClient()
-        ..getSuccess(respondWith: Response(jsonEncode(data), 200))
-        subject = APIClient(client:client);
-    });
+    setUpAll(()=>client.getSuccess(respondWith: Response(jsonEncode(data), 200)));
 
     test('should get the data from the API', (){
-        expectLater(subject.getData(), completion({data}));
+        expectLater(subject.getData(), completion(data));
     });
 }
 ```
