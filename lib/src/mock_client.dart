@@ -8,7 +8,7 @@ class MockClient extends Mock implements http.Client {
   }
 
   /// Mocks a successful `POST` request.
-  void postSucess<B>({required http.Response respondWith, B? body}) {
+  void postSuccess<B>({required http.Response respondWith, B? body}) {
     when(
       () => post(
         any<Uri>(),
@@ -88,5 +88,36 @@ class MockClient extends Mock implements http.Client {
     ).thenAnswer((_) => Future<http.Response>.value(respondWith));
   }
 
-  void patchFailure<T extends Exception>({required T throwsA}) {}
+  /// Mocks a failed `PATCH` request.
+  void patchFailure<E extends Exception, B>({required E throwsA, B? body}) {
+    when(
+      () => patch(
+        any<Uri>(),
+        body: any<B>(named: 'body'),
+        headers: any<Map<String, String>>(named: 'headers'),
+      ),
+    ).thenThrow(throwsA);
+  }
+
+  /// Mocks a successful `DELETE` request.
+  void deleteSuccess<B>({required http.Response respondWith, B? body}) {
+    when(
+      () => delete(
+        any<Uri>(),
+        body: any<B>(named: 'body'),
+        headers: any<Map<String, String>>(named: 'headers'),
+      ),
+    ).thenAnswer((_) => Future<http.Response>.value(respondWith));
+  }
+
+  /// Mocks a failed `DELETE` request.
+  void deleteFailure<E extends Exception, B>({required E throwsA, B? body}) {
+    when(
+      () => delete(
+        any<Uri>(),
+        body: any<B>(named: 'body'),
+        headers: any<Map<String, String>>(named: 'headers'),
+      ),
+    ).thenThrow(throwsA);
+  }
 }
