@@ -19,7 +19,7 @@ void main() {
   setUpAll(() {
     client = MockClient()
       ..getSuccess(respondWith: Response(jsonEncode(data), 200))
-      ..postSucess(body: data, respondWith: Response(jsonEncode(data), 200));
+      ..postSuccess(body: data, respondWith: Response(jsonEncode(data), 200));
 
     subject = Example(client: client);
   });
